@@ -48,6 +48,24 @@ with st.sidebar:
             values[feature] = st.selectbox(feature.replace("_", " ").title(), options)
         else:
             default = 0.0
+            binary_features = {
+                "pregnant", "fever", "cough", "sore_throat", "headache",
+                "vomiting", "diarrhea", "rash", "neck_stiffness",
+                "weight_loss", "fatigue", "mosquito_exposure",
+                "unsafe_water", "tb_contact", "recent_travel", "vaccinated",
+            }
+
+            if feature in binary_features:
+                labels = {0: "No", 1: "Yes"}
+                if feature == "pregnant":
+                    labels = {0: "Not pregnant", 1: "Pregnant"}
+
+                values[feature] = st.selectbox(
+                    feature.replace("_", " ").title(),
+                    options=[0, 1],
+                    format_func=lambda value: labels[value],
+                )
+                continue
             if feature == "age":
                 values[feature] = st.number_input(
                 "Age", min_value=0, max_value=120, value=30, step=1
