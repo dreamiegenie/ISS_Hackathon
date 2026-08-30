@@ -48,7 +48,11 @@ with st.sidebar:
             values[feature] = st.selectbox(feature.replace("_", " ").title(), options)
         else:
             default = 0.0
-            if feature == "age": default = 30
+            if feature == "age":
+                values[feature] = st.number_input(
+                "Age", min_value=0, max_value=120, value=30, step=1
+                )
+                continue
             elif feature == "bmi": default = 22.0
             elif feature == "temperature_c": default = 37.0
             elif feature == "heart_rate": default = 80
